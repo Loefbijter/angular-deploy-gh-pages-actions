@@ -70,7 +70,29 @@ export async function installDeps(): Promise<string> {
   return await execute('npm install')
 }
 
-export function copyFiles(from: string, to: string): void {
-  fs.copyFileSync(from, to)
+async function readFile(path: string, opts = 'utf8'): Promise<string> {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, opts, (err, data) => {
+      if (err) reject(err)
+      else resolve(data)
+    })
+  })
+}
+
+async function writeFile(
+  path: string,
+  data: string,
+  opts = 'utf8'
+): Promise<void> {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(path, data, opts, err => {
+      if (err) reject(err)
+      else resolve()
+    })
+  })
+}
+
+export async function copyFiles(from: string, to: string): Promise<void> {
+  await writeFile(to, await readFile(from))
   writeToConsole(`Successfully copied ${from} to ${to}!`)
 }

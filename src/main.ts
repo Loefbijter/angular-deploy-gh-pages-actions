@@ -12,7 +12,7 @@ async function run(): Promise<void> {
     const buildFolder = getInput('angular_dist_build_folder')
     const angularProjectDir = getInput('angular_project_dir')
     const deployBranch = getInput('deploy_branch')
-    const use404Fallback = getInput('use_404_fallback')
+   // const use404Fallback = getInput('use_404_fallback')
 
     // if the angular project directory is not the current directory
     if (angularProjectDir !== './' && angularProjectDir !== '') {
@@ -27,10 +27,10 @@ async function run(): Promise<void> {
     })
 
     // if (use404Fallback === 'true') {
-      commands.copyFiles(
-        `${process.cwd()}/index.html`,
-        `${process.cwd()}/404.html`
-      )
+    await commands.copyFiles(
+      `${process.cwd()}/index.html`,
+      `${process.cwd()}/404.html`
+    )
     // }
 
     /**
