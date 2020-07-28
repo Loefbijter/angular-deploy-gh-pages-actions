@@ -3831,11 +3831,6 @@ function run() {
                 baseHref,
                 buildConfig
             });
-            // if (use404Fallback === 'true') {
-            helpers_1.writeToConsole(use404Fallback);
-            helpers_1.writeToConsole(typeof use404Fallback);
-            yield commands.copyFiles(`${process.cwd()}/${buildFolder}/index.html`, `${process.cwd()}/${buildFolder}/404.html`);
-            // }
             /**
              * if we changed the workspace directory, we have to navigate back to initial workspace directory
              * The reason being for deploying to github pages, it works with the .git directory, so we have to be
@@ -3844,6 +3839,9 @@ function run() {
             if (workspaceDir) {
                 helpers_1.navigateToDirectory(workspaceDir);
             }
+            helpers_1.writeToConsole(use404Fallback);
+            helpers_1.writeToConsole(`${typeof use404Fallback}`);
+            yield commands.copyFiles(`${buildFolder ? buildFolder : './dist'}/index.html`, `${buildFolder ? buildFolder : './dist'}/404.html`);
             yield commands.deployBuild({
                 accessToken,
                 buildFolder,
