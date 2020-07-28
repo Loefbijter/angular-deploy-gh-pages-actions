@@ -8734,12 +8734,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const helpers_1 = __webpack_require__(441);
-const fs_1 = __importDefault(__webpack_require__(747));
 function runLint(shouldRunLint) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!helpers_1.isFalsyVal(shouldRunLint)) {
@@ -8802,33 +8798,10 @@ function installDeps() {
     });
 }
 exports.installDeps = installDeps;
-function readFile(path, opts = 'utf8') {
-    return __awaiter(this, void 0, void 0, function* () {
-        return new Promise((resolve, reject) => {
-            fs_1.default.readFile(path, opts, (err, data) => {
-                if (err)
-                    reject(err);
-                else
-                    resolve(data);
-            });
-        });
-    });
-}
-function writeFile(path, data, opts = 'utf8') {
-    return __awaiter(this, void 0, void 0, function* () {
-        return new Promise((resolve, reject) => {
-            fs_1.default.writeFile(path, data, opts, err => {
-                if (err)
-                    reject(err);
-                else
-                    resolve();
-            });
-        });
-    });
-}
 function copyFiles(from, to) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield writeFile(to, yield readFile(from));
+        helpers_1.writeToConsole(yield helpers_1.execute(`cat ${from}`));
+        yield helpers_1.execute(`cp ${from} ${to}`);
         helpers_1.writeToConsole(`Successfully copied ${from} to ${to}!`);
     });
 }
