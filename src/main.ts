@@ -26,12 +26,12 @@ async function run(): Promise<void> {
       buildConfig
     })
 
-    if (use404Fallback === 'true') {
+    // if (use404Fallback === 'true') {
       commands.copyFiles(
         `${process.cwd()}/index.html`,
         `${process.cwd()}/404.html`
       )
-    }
+    // }
 
     /**
      * if we changed the workspace directory, we have to navigate back to initial workspace directory
